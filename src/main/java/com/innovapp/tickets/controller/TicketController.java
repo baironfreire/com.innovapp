@@ -12,36 +12,36 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.innovapp.tickets.exception.ResourceNotFoundException;
+import com.innovapp.tickets.model.Report;
 import com.innovapp.tickets.model.Ticket;
-import com.innovapp.tickets.repository.TicketRepository;
+import com.innovapp.tickets.service.TicketServicie;
 
 @RestController
 public class TicketController {
 
+	
 	@Autowired
-	private TicketRepository repository;
+	private TicketServicie tickeService;
 	
 	@GetMapping("/ticket")
 	public List<Ticket> findAll(){
-		return repository.findAll();
+		return tickeService.findAll();
+	}
+	
+	@GetMapping("/ticket/{id}")
+	public Object findById(@PathVariable Integer id){
+		return tickeService.findByd(id);
 	}
 	
 	@PostMapping("/ticket")
 	public Ticket save(@Valid @RequestBody Ticket ticket){
-		return repository.save(ticket);
+		return tickeService.save(ticket);
 	}
 	
 	@PutMapping("/ticket")
 	public Ticket update(@PathVariable Integer id, @Valid @RequestBody Ticket ticketRequest){
-		return repository.findById(id).map(ticket -> {
-			ticket.setTicketValue(ticketRequest.getTicketValue());
-			ticket.setTikectIVA(ticketRequest.getTikectIVA());
-			ticket.setDiscountTicket(ticketRequest.getDiscountTicket());
-			ticket.setPassenger(ticketRequest.getPassenger());
-			ticket.setFlight(ticketRequest.getFlight());
-			ticket.setAirplane(ticketRequest.getAirplane());
-			return repository.save(ticket);
-		}).orElseThrow(() -> new ResourceNotFoundException("No se encontro el avion con el id " + id ));
+		return tickeService.update(id, ticketRequest);
 	}
+	
+	
 }

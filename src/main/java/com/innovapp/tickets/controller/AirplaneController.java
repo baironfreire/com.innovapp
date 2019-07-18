@@ -12,37 +12,33 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.innovapp.tickets.exception.ResourceNotFoundException;
-import com.innovapp.tickets.model.Flight;
-import com.innovapp.tickets.model.Passenger;
-import com.innovapp.tickets.repository.FlightRepository;
-import com.innovapp.tickets.service.FlightService;
+import com.innovapp.tickets.model.Airplane;
+import com.innovapp.tickets.service.AirplaneService;
 
 @RestController
-public class FlightController {
+public class AirplaneController {
 
 	@Autowired
-	private FlightService service;
+	private AirplaneService service;
 	
-	@GetMapping("/flight")
-	public List<Flight> findAll(){
+	@GetMapping("/airplane")
+	public List<Airplane> findAll(){
 		return service.findAll();
 	}
 	
 	
-	@GetMapping("/flight/{id}")
+	@GetMapping("/airplane/{id}")
 	public Object findById(@PathVariable Integer id){
 		return service.findByd(id);
 	}
 	
-	@PostMapping("/flight")
-	public Flight save(@Valid @RequestBody Flight flight){
-		return service.save(flight);
+	@PostMapping("/airplane")
+	public Airplane save(@Valid @RequestBody Airplane airplane){
+		return service.save(airplane);
 	}
 	
-	@PutMapping("/flight")
-	public Flight update(@PathVariable Integer id, @Valid @RequestBody Flight flightRequest){
-		return service.update(id, flightRequest);
+	@PutMapping("/airplane")
+	public Airplane update(@PathVariable Integer id, @Valid @RequestBody Airplane airplanetRequest){
+		return service.update(id, airplanetRequest);
 	}
-	
 }

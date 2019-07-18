@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -23,18 +24,18 @@ public class Flight {
     )
 	private Integer Id;
 	
-	@NotBlank
+	@NotNull
 	@Size(max=45)
 	private String description;
 	
-	@NotBlank
+	@NotNull
 	private Date departureDate;
 	
-	@NotBlank
+	@NotNull
 	@Size(max=45)
 	private String originCity;
 	
-	@NotBlank
+	@NotNull
 	@Size(max=45)
 	private String destinationCity;
 

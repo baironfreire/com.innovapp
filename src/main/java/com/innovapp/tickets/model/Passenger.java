@@ -2,6 +2,7 @@ package com.innovapp.tickets.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
@@ -24,11 +25,11 @@ public class Passenger {
     )
 	private Integer Id;
 	
-	@NotBlank
+	@NotNull
 	@Size(max=45)
 	private String name;
 	
-	@NotBlank
+	@NotNull
 	@Size(max=60)
 	private String email;
 

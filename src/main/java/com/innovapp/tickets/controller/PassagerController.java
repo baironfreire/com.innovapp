@@ -14,7 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.innovapp.tickets.exception.ResourceNotFoundException;
 import com.innovapp.tickets.model.Passenger;
-import com.innovapp.tickets.repository.PassegerRepository;
+import com.innovapp.tickets.repository.PassengerRepository;
+import com.innovapp.tickets.service.PassengerService;
 
 /**
  * @author <a href="mailto:bairon.f5@gmail.com">Bairon Fernando Freire Otalvaro</a>
@@ -27,25 +28,28 @@ import com.innovapp.tickets.repository.PassegerRepository;
 public class PassagerController {
 
 	@Autowired
-	private  PassegerRepository repository;
+	private PassengerService service;
+	
+	
 	
 	@GetMapping("/passenger")
 	public List<Passenger> findAll(){
-		return repository.findAll();
+		return service.findAll();
+	}
+	
+	@GetMapping("/passenger/{id}")
+	public Object findById(@PathVariable Integer id){
+		return service.findByd(id);
 	}
 	
 	@PostMapping("/passenger")
 	public Passenger save(@Valid @RequestBody Passenger passeger){
-		return repository.save(passeger);
+		return service.save(passeger);
 	}
 	
 	@PutMapping("/passenger/{id}")
 	public Passenger update(@PathVariable Integer id, @Valid @RequestBody Passenger passengerRequest){
-		return repository.findById(id).map(passenger -> {
-			passenger.setName(passengerRequest.getName());
-			passenger.setEmail(passengerRequest.getEmail());
-			return repository.save(passenger);
-		}).orElseThrow(() -> new ResourceNotFoundException("No se encontro el pasajero con el id " + id ));
+		return service.update(id, passengerRequest);
 	}
 	
 	

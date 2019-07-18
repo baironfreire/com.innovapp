@@ -2,6 +2,7 @@ package com.innovapp.tickets.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -10,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="tickets")
+
 public class Ticket {
 
 	@Id
@@ -21,30 +23,30 @@ public class Ticket {
     )
 	private Integer Id;
 	
-	@NotBlank
+	@NotNull
 	private Double ticketValue;
 	
 	
 	private Double tikectIVA;
 	
-	@NotBlank
+	@NotNull
 	private Double discountTicket;
 	
-	@NotBlank
+	@NotNull
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "passenger_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
 	private Passenger passenger;
 	
-	@NotBlank
+	@NotNull
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "flight_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
 	private Flight flight;
 	
-	@NotBlank
+	@NotNull
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "airplane_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
